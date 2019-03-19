@@ -1,0 +1,11 @@
+<h1 class="mt-4">Adatok</h1>
+<p>
+Vezetéknév: <%= loggedInUser.vezeteknev%><br>
+Keresztnév: <%= loggedInUser.keresztnev%><br>
+Email cím: <%= loggedInUser.email%><br>
+Telefonszám: <%= loggedInUser.telefonszam%><br>
+Eszközfelelős: <%= loggedInUser.eszkozfelelos ? "Igen" : "Nem" %>
+</p>
+
+<%- contentFor('navbar') %>
+<%- include('navbar'); %>

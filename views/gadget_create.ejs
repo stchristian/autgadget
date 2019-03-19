@@ -1,0 +1,55 @@
+<div id="eszkozForm">
+  <h2>
+    Eszköz <%= typeof gadget !== 'undefined' ? 'szerkesztése': 'hozzáadása'; %>
+  </h2>
+  <% include ./partials/messages %>
+  <form method="post" action="/gadget/create" enctype="multipart/form-data">
+    <div class="form-group">
+      <label for="nev">Név</label>
+      <input type="text" class="form-control" id="nev" name="nev" value="<%=
+      typeof gadget !== 'undefined' ? gadget.nev : '' %>" placeholder="Adja meg az eszköz nevét (márka, típus stb...)">
+    </div>
+    <div class="form-group">
+      <label for="sorszam">Sorszám</label>
+      <input type="text" class="form-control" id="sorszam" name="sorszam"
+      value="<%= typeof gadget !== 'undefined' ? gadget.sorszam : '' %>"
+      placeholder="Adja meg az eszköz sorszámát">
+    </div>
+    <div class="form-group">
+      <label for="qrkod">QR kód</label>
+      <input type="text" class="form-control" id="qrkod" name="qrkod" value="<%=
+      typeof gadget !== 'undefined' ? gadget.qrkod : '' %>" placeholder="Adja meg az eszköz QR kódját">
+    </div>
+    <div class="form-group">
+      <label for="leiras">Leírás</label>
+      <textarea class="form-control" id="leiras" rows="5" name="leiras" placeholder="Adjon meg egy rövid leírást az eszközről"><%= typeof gadget !== 'undefined' ? gadget.leiras : '' %></textarea>
+    </div>
+    <div class="form-group">
+      <label for="tartozekok">Tartozékok</label>
+      <input
+        type="text"
+        class="form-control"
+        name="tartozekok"
+        id="tartozekok"
+        placeholder="Adja meg az eszköz tartozékait vesszővel elválasztva. (Pl: töltő, kábel, adapter)"
+        value="<%= typeof gadget !== 'undefined' ? gadget.tartozekok.join(',') : '' %>"
+      />
+    </div>
+    <div class="form-group">
+        <span>Töltsön fel képeket az eszközről. Max 5 képet tölthet fel, egyenként maximum 5MB lehet a fájlméret.</span>
+      <div class="images_container">
+        <% for( let i = 0; i < 5; i++ ) { %>
+            <div class="preview_container">
+                <input type="file" name="kepek" id="upload<%= i %>">
+                <label for="upload<%= i %>">Válassz képet!</label>
+            </div>
+        <% } %>
+      </div>
+    </div>
+    
+    <button type="submit" class="btn btn-primary btn-lg">Hozzáadás</button>
+  </form>
+</div>
+
+<%- contentFor('customScript') %>
+<script src="/js/imagePreview.js"></script>

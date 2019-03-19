@@ -1,0 +1,36 @@
+{
+  "name": "onlab",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev:server": "nodemon --ignore sessions/ server.js",
+    "scss": "node-sass --watch scss -o public/css"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^3.0.4",
+    "body-parser": "^1.18.3",
+    "connect-flash": "^0.1.1",
+    "dotenv": "^7.0.0",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-ejs-layouts": "^2.5.0",
+    "express-session": "^1.15.6",
+    "express-validator": "^5.3.1",
+    "joi": "^14.3.1",
+    "mongoose": "^5.4.14",
+    "mongoose-unique-validator": "^2.0.2",
+    "multer": "^1.4.1",
+    "node-sass": "^4.11.0",
+    "passport": "^0.4.0",
+    "passport-local": "^1.0.0",
+    "session-file-store": "^1.2.0",
+    "uuid": "^3.3.2"
+  },
+  "devDependencies": {
+    "ejs-lint": "^0.3.0"
+  }
+}

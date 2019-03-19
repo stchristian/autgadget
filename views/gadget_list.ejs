@@ -1,0 +1,94 @@
+<% gadgets.forEach((gadget,index) => { %>
+    <div class="gadget_container">
+        <h2 class="mb-4"><%= gadget.nev%></h2>
+        <div class="row">
+            <% if (gadget.kepek.length != 0) { %>
+            <div id="carouselExampleControls<%= index%>" class="carousel slide col-sm-6">
+                <div class="carousel-inner">
+                    <% gadget.kepek.forEach((kep, index) => { %>
+                        <div class="carousel-item <%= index == 0 ? 'active' : '' %>">
+                        <img class="image_view" src="/<%= kep %>">
+                        </div>
+                    <% }) %>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls<%= index%>" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleControls<%= index%>" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+            <% } %>
+            
+            <div class="col-sm-<%= gadget.kepek.length != 0 ? '6' : '12' %>">
+            <h4>Sorszám: <%= gadget.sorszam %></h4>
+            <h4>Leírás</h4>
+                <p>
+                <%= gadget.leiras%>
+                </p>
+                <% if (gadget.tartozekok.length != 0) { %>
+                    <h5>Tartozékok</h5>
+                    <ul>
+                        <% gadget.tartozekok.forEach(tartozek => { %>
+                        <li><%= tartozek%></li>
+                        <% }) %>
+                    </ul>
+                <% } %>
+            <h4>Állapot: <span><%= gadget.allapot %></span></h4>
+                <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-action="<%=`/rental/create/${gadget.id}`%>">
+                Kölcsönzés
+            </button>
+            </div>
+
+        </div>
+        <div class="row">
+            <footer class="col mt-4 text-center font-italic">
+                Eszközfelelős: <%= gadget._felelos.teljesNev %> 
+            </footer>
+        </div>
+    </div>
+<% }); %>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Eszköz kölcsönzése</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <form action="" method="post">
+            <%  const now = new Date(); 
+                const dateString = now.getFullYear() + '-' + ('0' + (now.getMonth()+1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2);
+            %> 
+            <div class="modal-body">
+                <span>Add meg milyen intervallumban szeretnéd használni az eszközt!</span>
+                <div class="form-group row">
+                    <label for="start" class="col-sm-3 col-form-label">Kezdete:</label>
+                    <div class="col-sm-6">
+                        <input type="date" id="start" name="kezdete"
+                            value="<%= dateString%>">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="end" class="col-sm-3 col-form-label">Vége:</label>
+                    <div class="col-sm-6">
+                        <input type="date" id="end" name="vege"
+                            value="<%= dateString%>">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Vissza</button>
+                <input type="submit" class="btn btn-primary" value="Véglegesítés"></button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<%- contentFor('customScript') %>
+<script src="/js/rentalModalForm.js"></script>

@@ -1,0 +1,6 @@
+<h1 class="mt-4">Dashboard</h1>
+<p class="lead mb-3">Üdvözöljük <%= loggedInUser.vezeteknev + ' ' + loggedInUser.keresztnev %></p>
+<p>Telefonszám: <%= loggedInUser.telefonszam%></p>
+<p>Eszközfelelős: <%= loggedInUser.eszkozfelelos ? "Igen" : "Nem" %></p>
+<p>Adminisztrátor: <%= loggedInUser.admin ? "Igen": "Nem" %></p>
+<a href="/logout" class="btn btn-secondary">Kijelentkezés</a>
