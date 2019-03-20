@@ -21,7 +21,7 @@ module.exports = (objectRepository) => {
         try {
             const result = await newRental.save();
             //TODO: email küldése az eszközfelelősnek
-            //gadget._felelos.sendRentalEmail(result);
+            gadget._felelos.sendRentalEmail(result);
             res.locals.rental = result;
             console.log("sikeres kölcsönzés");
             console.log(result);

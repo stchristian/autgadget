@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const bcrypt = require("bcrypt");
+const emailSender = require('../config/email');
 
 const Schema = mongoose.Schema;
 
@@ -57,6 +58,27 @@ userSchema.methods.comparePassword = function(jelszo, cb) {
         if (err) return cb(err);
         cb(null, isMatch);
     });
+};
+
+
+userSchema.methods.sendRentalEmail = function(rent) {
+    let emailAddress = this.email;
+    rent.populate("_eszkoz _kolcsonzo", function(err, rental) {
+        if(err)
+        {
+            console.log(err);
+        }
+        else {
+            console.log(rental);
+            html = `<h1>Kölcsönzés érkezett</h1>
+            <p>Eszköz: ${rental._eszkoz.nev}</p>
+            <p>Kölcsönző neve: ${rental._kolcsonzo.teljesNev}</p>
+            <p>Kölcsönző telefonszáma ${rental._kolcsonzo.telefonszam}</p>
+            <p>Kölcsönző email címe: ${rental._kolcsonzo.email}</p>
+            `;
+            emailSender.sendMail(emailAddress, html);
+        }
+    })
 };
 
 const SALT_WORK_FACTOR = 10;
