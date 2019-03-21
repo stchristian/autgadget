@@ -15,10 +15,6 @@ module.exports = function(objectRepository) {
         res.render('info') ;
     })
     
-    router.get('/dashboard', (req,res) => {
-        res.render('dashboard');
-    });
-
     router.use('/list',
         ensureAdminMW(objectRepository),
     );
