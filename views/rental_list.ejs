@@ -28,8 +28,8 @@
             <tr>
             <td><%= rental._kolcsonzo.teljesNev %></td>
             <td><%= rental._eszkoz.nev %></td>
-            <td><%= dateToString(rental.foglalas.kezdete) %></td>
-            <td><%= dateToString(rental.foglalas.vege) %></td>
+            <td><%= dateFormat(rental.foglalas.kezdete, "longDate") %></td>
+            <td><%= dateFormat(rental.foglalas.vege, "longDate") %></td>
             </tr>
         <% }) %>
     </tbody>

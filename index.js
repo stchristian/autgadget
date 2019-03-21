@@ -10,6 +10,7 @@ const flash = require('connect-flash');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
 const uuid = require('uuid');
+const dateFormat = require('./generic/dateFormat');
 
 const debug = require('./debug');
 const passport = require('./passport');
@@ -18,6 +19,8 @@ const passport = require('./passport');
 
 const app = express();
 
+//Alkalmazás szintű változók az EJS fájlok részére
+app.locals.dateFormat = dateFormat;
 
 // ObjectID-s varázslás , csak hogy tudjuk hogy működik
 // let ObjectID = mongoose.Types.ObjectId;
