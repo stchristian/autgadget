@@ -25,6 +25,11 @@ module.exports = function(objectRepository) {
         renderViewMW(objectRepository, 'gadget_list')
     )
 
+    router.get('/details/:gadgetId',
+        getGadgetMW(objectRepository),
+        renderViewMW(objectRepository, 'gadget_details')
+    );
+
     router.get('/:gadgetId/edit',
         getGadgetMW(objectRepository),
         renderViewMW(objectRepository, 'gadget_create')

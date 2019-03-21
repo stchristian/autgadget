@@ -1,83 +1,12 @@
 $red-color : #a4001e;
-$light-gray : #eee;
+$light-gray : #ccc;
 $dark-gray : #333;
-.vertical-align {
-    display: flex;
-    flex-direction: row;
-}
 
-.vertical-align > [class^="col-"],
-.vertical-align > [class*=" col-"] {
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Optional, to align inner items 
-                              horizontally inside the column */
-}
+@import "gadget_list";
+@import "gadget_detail";
 
 a {
     color: inherit;
-}
-
-.listItem {
-    h1 {
-        
-        position: relative;
-        width: 100%;
-
-        span {
-            color: black;
-            .fa-check-circle {
-                color: green;
-            }
-
-            .fa-times-circle {
-                color: red;
-            }
-            position: absolute;
-            right: 0;
-            bottom: 0;
-        }
-
-        @media screen and (max-width: 991px) {
-            position: static;
-
-            span {
-                display: block;
-                position: static;
-            }
-        }
-    }
-
-    hr {
-        border-color: black;
-        margin : 5px 0;
-    }
-
-    ul {
-        display: inline-block;
-        margin-bottom: 0;
-    }
-
-    footer {
-        text-align: right;
-    }
-
-    #tartozekok {
-        font-weight: bold;
-        font-size: 1.2em;
-    }
-
-    @media screen and (min-width: 992px) {
-        #buttonContainer {
-            position: relative;
-            button {
-                position: absolute;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-        }
-    }
-
 }
 
 #eszkozForm {
@@ -88,7 +17,6 @@ a {
     //background-color: $light-gray;
     margin:0.5rem 0;
     //border-radius: 10px;
-    text-align: center;
 
     .preview_container {
         display: inline-block;
@@ -161,35 +89,3 @@ a {
         }
     }
 }   
-
-.gadget_container {
-    background-color: $light-gray;
-    border-radius: 5px;
-    box-shadow: 0px 0px 10px 0px rgba(133,133,133,0.84);
-    padding: 25px;
-    margin: 10px 0;
-
-    .carousel {
-        overflow: hidden;
-        text-align: center;
-    }
-
-    .carousel-control-next {
-        filter: invert(100%);
-    }
-
-    .carousel-control-prev {
-        filter: invert(100%);
-    }
-
-    .image_view {
-        object-fit: contain;
-        height: 300px;
-        width: auto;
-    }
-
-    ul {
-        list-style-type: none;
-        padding-inline-start: 4px;
-    }
-}

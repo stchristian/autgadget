@@ -1,0 +1,66 @@
+<div class="gadget_container">
+    <div class="row">
+        <div class="col-md-6">  
+            <div class="slideshow-container ">
+                <% gadget.kepek.forEach(kep => { %>
+                    <div class="slides">
+                        <img class="slideshow-img" src="/<%= kep %>">
+                    </div>
+                <% }) %>
+                <a onclick="plusSlides(1)"><i class="next fas fa-caret-right"></i></a>
+                <a onclick="plusSlides(-1)"><i class="prev fas fa-caret-left"></i></a>
+                
+            </div>
+            <div class="slideshow-thumbnails row align-items-center mt-3 mb-3 mb-md-0">
+                <% gadget.kepek.forEach((kep, index) => { %>
+                    <div class="col-2">
+                        <img class="thumbnail-image" src="/<%= kep %>" onclick="currentSlide(<%= index %>)">
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+        <div class="col-md-6">
+        <h2 class="mb-4"><%= gadget.nev%></h2>
+        <h4>Sorszám: <%= gadget.sorszam %></h4>
+        <h4>Leírás</h4>
+            <p>
+            <%= gadget.leiras%>
+            </p>
+            <% if (gadget.tartozekok.length != 0) { %>
+                <h5>Tartozékok</h5>
+                <ul>
+                    <% gadget.tartozekok.forEach(tartozek => { %>
+                    <li><%= tartozek%></li>
+                    <% }) %>
+                </ul>
+            <% } %>
+        <h4>Állapot: <span><%= gadget.allapot %></span></h4>
+
+        <form action="/rental/create/<%= gadget.id %>" method="POST">
+            <div class="form-group">
+                <label for="kezdete">Foglalás kezdete:</label>
+                <input class="form-control"type="text" name="kezdete" id="fromDate">
+            </div>
+            <div class="form-group">
+                <label for="vege">Foglalás vége:</label>
+                <input class="form-control" type="text" name="vege" id="toDate">
+            </div>
+            <button type="submit" class="btn btn-primary">
+            Kölcsönzés
+            </button>
+        </form>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <footer class="col mt-4 text-center font-italic">
+            Eszközfelelős: <%= gadget._felelos.teljesNev %> 
+        </footer>
+    </div>
+</div>
+
+<%- contentFor('customScript') %>
+<script src="/js/slideShowGallery.js"></script>
+<script src="/js/datePicker.js"></script>
+
