@@ -69,6 +69,16 @@ gadgetSchema.methods.checkAllapot = async function() {
     return 'Szabad';
 };
 
+gadgetSchema.index({
+    nev: 'text',
+    leiras: 'text'
+}, {
+    weights: {
+        nev: 5,
+        leiras: 1
+    }
+});
+
 gadgetSchema.plugin(uniqueValidator, { message : "Ilyen sorszámmal már létezik eszköz"});
 
 const gadgetModel = mongoose.model('Gadget', gadgetSchema);
