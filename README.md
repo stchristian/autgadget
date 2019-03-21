@@ -25,5 +25,9 @@ Az egyetemen a hallgatók szabadon kölcsönözhetnek eszközöket az AUT tansz�
 * /views : EJS fájlok
 
 ### Konfiguráció a .env fájlba
-* PORT (szerver portja)
-* MONGO_URI (mongodb elérési uri)
+* PORT szerver portja
+* MONGO_URI mongodb elérési uri
+* MAIL_USER erről az email címről fog küldeni emailt a rendszer
+* MAIL_PASS email címhez tartozó jelszó
+* MAIL_SERVER email szerver
+* MAIL_PORT email szerver portja

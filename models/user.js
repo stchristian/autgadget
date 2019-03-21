@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 const bcrypt = require("bcrypt");
-const emailSender = require('../config/email');
+const transporter = require('../config/email');
 
 const Schema = mongoose.Schema;
 
@@ -63,20 +63,38 @@ userSchema.methods.comparePassword = function(jelszo, cb) {
 
 userSchema.methods.sendRentalEmail = function(rent) {
     let emailAddress = this.email;
+
     rent.populate("_eszkoz _kolcsonzo", function(err, rental) {
         if(err)
         {
             console.log(err);
         }
         else {
-            console.log(rental);
-            html = `<h1>Kölcsönzés érkezett</h1>
-            <p>Eszköz: ${rental._eszkoz.nev}</p>
-            <p>Kölcsönző neve: ${rental._kolcsonzo.teljesNev}</p>
-            <p>Kölcsönző telefonszáma ${rental._kolcsonzo.telefonszam}</p>
-            <p>Kölcsönző email címe: ${rental._kolcsonzo.email}</p>
-            `;
-            emailSender.sendMail(emailAddress, html);
+            let mailOptions = {
+                from: `"AUTGADGET" <${process.env.MAIL_USER}>`,
+                to: emailAddress,
+                subject: `Eszközkölcsönzés`,
+                html: `
+                <h1>Új kölcsönzés érkezett eszközére!</h1>
+                <h3>Adatok:</h3>
+                <p>
+                    Eszköz: ${rental._eszkoz.nev}<br>
+                    Kölcsönző neve: ${rental._kolcsonzo.teljesNev}<br>
+                    Kölcsönző telefonszáma ${rental._kolcsonzo.telefonszam}<br>
+                    Kölcsönző email címe: ${rental._kolcsonzo.email}<br>
+                    Kölcsönzés kezdete: ${rental.foglalas.kezdete}<br>
+                    Kölcsönzés vége: ${rental.foglalas.vege}<br>
+                </p>
+                `
+            }
+            transporter.sendMail(mailOptions, (err, info) => {
+                if(err) {
+                    console.log("Sikertelen email küldés: " + err);
+                }
+                else {
+                    console.log("Email sikeresen elküldve!");
+                }
+            });
         }
     })
 };
