@@ -28,8 +28,14 @@ module.exports = (objectRepository) => {
             return next();
         }
         catch(err) {
+            res.locals.validation_errors = [];
             if(err.name === "ValidationError") {
                 res.locals.validation_errors = Object.values(err.errors).map(err => err.message);
+                return next();
+            }
+            if(err.logicError) {
+                res.locals.validation_errors.push(err.msg);
+                console.log(err.msg)
                 return next();
             }
             else {

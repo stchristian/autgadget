@@ -36,7 +36,6 @@ module.exports = (objectRepository) => {
                 });
             }
             res.locals.rentals = rentals;
-            console.log(rentals);
             next();
         }
         catch(err) {
