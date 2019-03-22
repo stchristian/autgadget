@@ -1,6 +1,6 @@
-const requireOption = require('../common');
+const requireOption = require('../common').requireOption;
 
-module.exports = objectRepository => {
+module.exports = (objectRepository) => {
     const commentModel = requireOption(objectRepository, "commentModel");
 
     return (req, res, next) => {

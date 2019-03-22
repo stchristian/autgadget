@@ -6,13 +6,12 @@ module.exports = (objectRepository) => {
 
         const gadget = res.locals.gadget;
         const comment = res.locals.comment;
-        gadget.kommentek.push(comment.id);
+        gadget._kommentek.push(comment.id);
 
         gadget.save((err, result) => {
             if(err) {
-                //Ezt lehet kikéne szervezni?
                 if(err.name === "ValidationError") {
-                    res.locals.validation_errors = Object.values(err.errors).map(err => err.message);
+                    req.flash('validation_errors', Object.values(err.errors).map(err => err.message));
                     return next();
                 }
                 else {

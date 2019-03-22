@@ -8,14 +8,23 @@ module.exports = (objectRepository) => {
     return async (req,res,next) => {
         try {
             let gadget = await gadgetModel.findOne({ _id : req.params.gadgetId })
-                .populate("_felelos");
+                .populate({
+                    path: '_felelos'
+                })
+                .populate({
+                    path: '_kommentek',
+                    populate: {
+                        path: '_szerzo',
+                        select: 'keresztnev vezeteknev'
+                    }
+                })
             res.locals.gadget = gadget;
             res.locals.gadget.allapot = await gadget.checkAllapot();
 
-            next();
+            return next();
         }
         catch(err) {
-            if(err) next(err);
+            if(err) return next(err);
         }
     };
 };

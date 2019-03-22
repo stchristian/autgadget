@@ -8,6 +8,9 @@ const createGadgetMW = require('../../middlewares/gadget/createGadget');
 const uploadPhotoMW = require('../../middlewares/gadget/uploadPhoto');
 const renderViewMW = require('../../middlewares/renderView');
 
+const createCommentMW = require('../../middlewares/comment/createComment');
+const addCommentMW = require('../../middlewares/gadget/addComment');
+
 
 module.exports = function(objectRepository) {
 
@@ -28,13 +31,21 @@ module.exports = function(objectRepository) {
 
     router.get('/details/:gadgetId',
         getGadgetMW(objectRepository),
-        getRentalsByGadget(objectRepository),
         renderViewMW(objectRepository, 'gadget_details')
     );
 
     router.get('/:gadgetId/edit',
         getGadgetMW(objectRepository),
         renderViewMW(objectRepository, 'gadget_create')
+    );
+
+    router.post('/:gadgetId/comment',
+        getGadgetMW(objectRepository),
+        createCommentMW(objectRepository),
+        addCommentMW(objectRepository),
+        (req,res) => {
+            res.redirect(`/gadget/details/${req.params.gadgetId}`);
+        }
     );
 
 

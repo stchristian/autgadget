@@ -1,6 +1,7 @@
 const userModel = require('../../models/user');
 const gadgetModel = require('../../models/gadget');
 const rentalModel = require('../../models/rental');
+const commentModel = require('../../models/comment');
 
 const ensureAuthMW = require('../../middlewares/user/auth/ensureAuth');
 const logoutUserMW = require('../../middlewares/user/auth/logoutUser');
@@ -13,7 +14,8 @@ module.exports = (app) => {
     var objectRepository = {
         userModel: userModel,
         gadgetModel: gadgetModel,
-        rentalModel: rentalModel
+        rentalModel: rentalModel,
+        commentModel: commentModel
     };
 
     app.use(flashMessagesMW(objectRepository));

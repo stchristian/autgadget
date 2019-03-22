@@ -33,7 +33,7 @@ const gadgetSchema = new Schema({
         ref : 'User',
         required : true,
     },
-    kommentek:[{
+    _kommentek:[{
         type : Schema.Types.ObjectId, 
         ref : 'Comment',
         default: []

@@ -21,9 +21,10 @@
         </div>
         <div class="col-md-6">
             <h2 class="mb-0 font-weight-bold"><%= gadget.nev%></h2>
-            <span class="d-block mb-3 font-weight-bold">Állapot: <%= gadget.allapot %> <% if (gadget.allapot == "Szabad") { %>
+            <span class="d-block font-weight-bold">Állapot: <%= gadget.allapot %> <% if (gadget.allapot == "Szabad") { %>
             <i style="color: green;" class="fas fa-check-circle"></i>
             <% } else {%><i style="color: red;" class="fas fa-times-circle"></i><%}%></span>
+            <span class="d-block mb-3 font-weight-bold">Eszközfelelős: <a class="font-italic" href="#"><%= gadget._felelos.teljesNev %></a></span>
             <h5>Leírás</h5>
             <p><%= gadget.leiras%></p>
             <% if (gadget.tartozekok.length != 0) { %>
@@ -36,7 +37,7 @@
             <% } %>
             
             <% include ./partials/messages %>
-            <form action="/rental/create/<%= gadget.id %>" method="POST">
+            <form action="/rental/create/<%= gadget.id %>" method="POST" class="mb-3">
                 <div class="form-group">
                     <label for="kezdete">Foglalás kezdete:</label>
                     <input class="form-control"type="text" name="kezdete" id="fromDate">
@@ -49,15 +50,32 @@
                 Kölcsönzés
                 </button>
             </form>
-            
+            <% if (loggedInUser.admin) { %>
+                <a href="/rental/list/<%= gadget.id %>" class="btn btn-info col col-md-auto">Eszköz history</a>
+            <% } %>
         </div>
     </div>
-    <div class="row">
-        <footer class="col mt-2 text-center">
-            Eszközfelelős: <a class="font-italic" href="#"><%= gadget._felelos.teljesNev %></a>
-        </footer>
+
+    <h3 class="mt-3 font-weight-bold">Hozzászólások:</h3>
+    <div class="">
+        <% gadget._kommentek.forEach(komment => { %>
+            <div class="comment py-3 border-bottom">
+                <h5 class="font-weight-bold mb-0"><%= komment._szerzo.teljesNev %></h5>
+                <span class="text-muted font-italic d-block mb-2" style="font-size: 0.9rem;"><%= dateFormat(komment.hozzaadas_datuma, 'longDate') %></span>
+                <div class="">
+                    <p class="mb-0"><%= komment.szoveg %></p>
+                </div>
+            </div>
+        <% }) %>
     </div>
+    <form action="/gadget/<%= gadget.id %>/comment" method="POST">
+        <div class="form-group">
+        <textarea class="form-control" id="leiras" rows="5" name="szoveg" placeholder="Írjon hozzászólást az eszközhöz..."></textarea>
+        </div>
+        <button class="btn btn-secondary" type="submit">Hozzászólás</button>
+    </form>
 </div>
+
 
 <script>
     <% var disabledDateIntervals = rentals.map((rental) => { 
