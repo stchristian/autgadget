@@ -13,10 +13,14 @@ module.exports = (objectRepository) => {
         const newRental = new rentalModel();
         newRental._kolcsonzo = req.user.id;
         newRental._eszkoz = gadget.id;
+        let kezdete = new Date(req.body.kezdete);
+        let vege = new Date(req.body.vege);
+        console.log(kezdete.getTimezoneOffset());
         newRental.foglalas = {
-            kezdete: new Date(req.body.kezdete),
-            vege: new Date(req.body.vege),
+            kezdete,
+            vege
         };
+        console.log(newRental);
 
         try {
             const result = await newRental.save();

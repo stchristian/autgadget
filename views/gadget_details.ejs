@@ -34,26 +34,7 @@
                     <% }) %>
                 </ul>
             <% } %>
-            <% if (rentals.length != 0) { %>
-            <div style="max-height: 200px; overflow-y: auto;">
-                <table class="table table-striped table-bordered">
-                <thead>
-                    <tr>
-                    <th scope="col">Kölcsönzés kezdete</th>
-                    <th scope="col">Kölcsönzés vége</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% rentals.forEach(rental => { %>
-                        <tr>
-                        <td><%= dateFormat(rental.foglalas.kezdete, "longDate") %></td>
-                        <td><%= dateFormat(rental.foglalas.vege, "longDate") %></td>
-                        </tr>
-                    <% }) %>
-                </tbody>
-                </table>
-            </div>
-            <% } %>
+            
             <form action="/rental/create/<%= gadget.id %>" method="POST">
                 <div class="form-group">
                     <label for="kezdete">Foglalás kezdete:</label>
@@ -76,6 +57,14 @@
         </footer>
     </div>
 </div>
+
+<script>
+    <% var disabledDateIntervals = rentals.map((rental) => { 
+            return rental.foglalas;
+        });
+    %>
+    var disabledDateIntervals = <%- JSON.stringify(disabledDateIntervals) %>;
+</script>
 
 <%- contentFor('customScript') %>
 <script src="/js/slideShowGallery.js"></script>

@@ -1,4 +1,18 @@
+function beforeShowDay(date) {
+    for (let i = 0; i < disabledDateIntervals.length; i++) {
+        const foglalas = disabledDateIntervals[i];
+        let kezdete = new Date(foglalas.kezdete);
+        let vege = new Date(foglalas.vege);
+        if( date >= kezdete && date <= vege ) {
+            return [false];
+        }
+    }
+    return [true];
+}
+
 $(function() {
+    console.log(disabledDateIntervals);
+
     $.datepicker.regional['hu'] = {
         closeText: 'bezárás',
         prevText: '&laquo;&nbsp;vissza',
@@ -12,16 +26,16 @@ $(function() {
         dayNamesShort: ['Vas', 'Hét', 'Ked', 'Sze', 'Csü', 'Pén', 'Szo'],
         dayNamesMin: ['V', 'H', 'K', 'Sze', 'Cs', 'P', 'Szo'],
         weekHeader: 'Hé',
-        dateFormat: 'yy-mm-dd',
+        // dateFormat: 'yy-mm-dd',
         firstDay: 1,
         isRTL: false,
         showMonthAfterYear: false,
         yearSuffix: ''};
     $.datepicker.setDefaults($.datepicker.regional['hu']);
     $("#fromDate").datepicker({
-        dateFormat: "yy-mm-dd"
+        beforeShowDay: beforeShowDay
     });
     $("#toDate").datepicker({
-        dateFormat: "yy-mm-dd"
+        beforeShowDay: beforeShowDay
     });
 });
