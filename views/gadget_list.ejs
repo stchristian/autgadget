@@ -17,12 +17,9 @@
                 style="height: 200px; object-fit: contain;">
             <div class="card-body">
                 <h4 class="card-title"><%= gadget.nev %> </h4>
-                <p class="card-text"><%= gadget.leiras %> </p>
-                <h6 class="card-subtitle mb-2">Állapot: <%= gadget.allapot %> <% if (gadget.allapot == "Szabad") { %>
-                <i style="color: green;" class="fas fa-check-circle"></i>
-                <% } else {%><i style="color: red;" class="fas fa-times-circle"></i><%}%></h6>
+                <p class="card-text text-truncate" style="max-height: 150px"><%= gadget.leiras %> </p>
                 <a class="btn btn-primary" href="/gadget/details/<%=gadget.id%>">
-                    Kölcsönzés
+                    Tovább
                 </a>
             </div>
         </div>
@@ -30,45 +27,25 @@
     <% }) %>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Eszköz kölcsönzése</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-        <form action="" method="post">
-            <%  const now = new Date(); 
-                const dateString = now.getFullYear() + '-' + ('0' + (now.getMonth()+1)).slice(-2) + '-' + ('0' + now.getDate()).slice(-2);
-            %> 
-            <div class="modal-body">
-                <span>Add meg milyen intervallumban szeretnéd használni az eszközt!</span>
-                <div class="form-group row">
-                    <label for="start" class="col-sm-3 col-form-label">Kezdete:</label>
-                    <div class="col-sm-6">
-                        <input type="date" id="start" name="kezdete"
-                            value="<%= dateString%>">
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <label for="end" class="col-sm-3 col-form-label">Vége:</label>
-                    <div class="col-sm-6">
-                        <input type="date" id="end" name="vege"
-                            value="<%= dateString%>">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Vissza</button>
-                <input type="submit" class="btn btn-primary" value="Véglegesítés"></button>
-            </div>
-        </form>
-    </div>
-  </div>
-</div>
+<nav>
+    <ul class="pagination justify-content-center">
+        <li class="page-item">
+        <a class="page-link" href="/gadget/list?pageNo=<%= currentPage - 1 %>" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+            <span class="sr-only">Previous</span>
+        </a>
+        </li>
+        <% for( let i = 1; i <= totalPages; i++ ) { %>
+            <li class="page-item <%= i == currentPage ? 'active' : '' %>"><a class="page-link" href="/gadget/list?pageNo=<%= i %>"><%= i %></a></li>
+        <% } %>
+        <li class="page-item">
+        <a class="page-link" href="/gadget/list?pageNo=<%= currentPage + 1 %>" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+            <span class="sr-only">Next</span>
+        </a>
+        </li>
+    </ul>
+</nav>
 
 <%- contentFor('customScript') %>
 <script src="/js/rentalModalForm.js"></script>

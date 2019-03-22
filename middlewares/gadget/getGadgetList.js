@@ -6,20 +6,38 @@ module.exports = (objectRepository) => {
     const gadgetModel = requireOption(objectRepository, 'gadgetModel');
 
     return async (req,res,next) => {
-        let query = {};
-        if(typeof req.query.kereses === 'string' && req.query.kereses !== '') {
-            query.$text = {
-                $search : req.query.kereses
-            }
-            res.locals.kereses = req.query.kereses;
-        }
+        let conditions = {};
+        let options = {};
+        let totalCount;
         try {
-            let gadgets = await gadgetModel.find(query)
-                .populate("_felelos");
-            
-            for(let i in gadgets) {
-                gadgets[i].allapot = await gadgets[i].checkAllapot();
+            if(typeof req.query.kereses === 'string' && req.query.kereses !== '') {
+                conditions.$text = {
+                    $search : req.query.kereses
+                }
+                totalCount = await gadgetModel.countDocuments(conditions);
+                res.locals.kereses = req.query.kereses;
             }
+            else {
+                totalCount = await gadgetModel.countDocuments();
+            }
+
+            const pageSize = 6;
+            const totalPages = Math.ceil(totalCount / pageSize);
+            let pageNo = parseInt(req.query.pageNo) || 1;
+            if(pageNo > totalPages) {
+                pageNo = totalPages;
+            }
+            else if (pageNo < 1) {
+                pageNo = 1;
+            }
+            options.skip = pageSize * (pageNo - 1);
+            options.limit = pageSize;
+
+            let gadgets = await gadgetModel.find(conditions, {}, options);
+
+            res.locals.totalCount = totalCount;
+            res.locals.totalPages = totalPages;
+            res.locals.currentPage = pageNo;
             res.locals.gadgets = gadgets;
             next();
         }
