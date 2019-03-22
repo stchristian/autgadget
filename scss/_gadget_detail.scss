@@ -11,6 +11,10 @@
         .slideshow-img {
             height: 500px;
             object-fit: cover;
+
+            @media screen and (max-width : 767px ){
+                height: 300px;
+            }
         }
     }
 

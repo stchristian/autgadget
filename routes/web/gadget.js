@@ -3,6 +3,7 @@ const router = express.Router();
 
 const getGadgetListMW = require('../../middlewares/gadget/getGadgetList');
 const getGadgetMW = require('../../middlewares/gadget/getGadget');
+const getRentalsByGadget = require('../../middlewares/rental/getRentalsByGadget');
 const createGadgetMW = require('../../middlewares/gadget/createGadget');
 const uploadPhotoMW = require('../../middlewares/gadget/uploadPhoto');
 const renderViewMW = require('../../middlewares/renderView');
@@ -27,6 +28,7 @@ module.exports = function(objectRepository) {
 
     router.get('/details/:gadgetId',
         getGadgetMW(objectRepository),
+        getRentalsByGadget(objectRepository),
         renderViewMW(objectRepository, 'gadget_details')
     );
 
