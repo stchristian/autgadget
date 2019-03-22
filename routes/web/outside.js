@@ -4,11 +4,14 @@ const loginUserMW = require('../../middlewares/user/auth/loginUser');
 const createUserMW = require('../../middlewares/user/createUser');
 const registerRedirectMW = require('../../middlewares/registerRedirect');
 const userModel = require('../../models/user');
+const flashMessagesMW = require('../../middlewares/flashMessages');
 
 module.exports = (app) => {
     var objectRepository = {
         userModel: userModel
     };
+
+    app.use(flashMessagesMW(objectRepository));
 
     app.get('/',
         mainRedirectMW(objectRepository)

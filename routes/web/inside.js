@@ -18,7 +18,6 @@ module.exports = (app) => {
         commentModel: commentModel
     };
 
-    app.use(flashMessagesMW(objectRepository));
     app.use('/user', ensureAuthMW(objectRepository));
     app.use('/gadget', ensureAuthMW(objectRepository));
     app.use('/rental', ensureAuthMW(objectRepository));
