@@ -14,12 +14,18 @@ module.exports = (objectRepository) => {
                 conditions.$text = {
                     $search : req.query.kereses
                 }
-                totalCount = await gadgetModel.countDocuments(conditions);
                 res.locals.kereses = req.query.kereses;
             }
-            else {
-                totalCount = await gadgetModel.countDocuments();
+            if( typeof req.query.sajat_eszkozok !== 'undefined' && req.query.sajat_eszkozok) {
+                console.log(req.query.sajat_eszkozok);
+                conditions._felelos = res.locals.loggedInUser.id;
+                res.locals.sajat_eszkozok = true;
             }
+            else {
+                res.locals.sajat_eszkozok = false;
+            }
+
+            totalCount = await gadgetModel.countDocuments(conditions);
 
             const pageSize = 6;
             const totalPages = Math.ceil(totalCount / pageSize);
