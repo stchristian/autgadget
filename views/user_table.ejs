@@ -33,7 +33,7 @@
             <td><i class="fas fa-<%= user.admin ? 'check' : 'times' %>"></i></td>
             <td><i class="fas fa-<%= user.eszkozfelelos ? 'check' : 'times' %>"></i></td>
             <td><a class="mx-2" href="/user/list/<%= user.id %>/edit"><i class="fas fa-edit"></i></a>
-                <a class="mx-2" href="/user/list/<%= user.id %>/delete"><i class="fas fa-trash"></i></a>
+                <a class="mx-2" href="/user/<%= user.id %>/delete"><i class="fas fa-trash"></i></a>
             </td>
             </tr>
         <% }) %>

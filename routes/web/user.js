@@ -2,13 +2,12 @@ const express = require('express');
 const router = express.Router();
 
 const getGadgetListMW = require('../../middlewares/gadget/getGadgetList');
+const deleteUserMW = require('../../middlewares/user/deleteUser');
 const renderViewMW = require('../../middlewares/renderView');
 const getUserListMW = require('../../middlewares/user/getUserList');
 const getUserMW = require('../../middlewares/user/getUser');
 const updateUserMW = require('../../middlewares/user/updateUser');
 const ensureAdminMW = require('../../middlewares/user/auth/ensureAdmin');
-
-
 
 module.exports = function(objectRepository) {
     router.get('/info', (req,res,next) => {
@@ -37,46 +36,12 @@ module.exports = function(objectRepository) {
         renderViewMW(objectRepository, 'user_table')
     )
 
+    router.get('/:userId/delete',
+        deleteUserMW(objectRepository),
+        (req,res,next) => {
+            res.redirect('/user/list');
+        }
+    );
+
     return router;
 }
-
-
-// router.get('/users', (req,res, next) => {
-//     felhasznaloModel.find()
-//         .then(felhasznalok => {
-//             res.render('users', { felhasznalok });
-//         })
-//         .catch( err=> {
-//             console.log(err);
-//         })
-// });
-
-// router.get('/create', (req,res,next) => {
-
-//     res.render('adduser', { 
-//         success_msg: req.flash("success_msg"),
-//         errors: req.flash("errors")
-//     });
-// });
-
-// router.post('/create', (req,res,next) => {
-//     const ujFelhasznalo = new felhasznaloModel(req.body);
-
-//     ujFelhasznalo.save()
-//         .then(user => {
-//             req.flash("success_msg", "Felhasználó sikeresen hozzáadva!");
-//             res.redirect("/user/create");
-//         })
-//         .catch(error => {
-//             if(error.name === "ValidationError") {
-//                 let errors = [];
-//                 for(let key in error.errors) {
-//                     let message = error.errors[key].message;
-//                     errors.push({ message: message });
-//                     console.log(message);
-//                 }
-//                 req.flash("errors", errors);
-//                 res.redirect("/user/create");
-//             }
-//         });
-// });
