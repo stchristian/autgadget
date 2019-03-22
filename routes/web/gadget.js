@@ -7,6 +7,7 @@ const getRentalsByGadget = require('../../middlewares/rental/getRentalsByGadget'
 const createGadgetMW = require('../../middlewares/gadget/createGadget');
 const uploadPhotoMW = require('../../middlewares/gadget/uploadPhoto');
 const renderViewMW = require('../../middlewares/renderView');
+const getUserListMW = require('../../middlewares/user/getUserList');
 
 const createCommentMW = require('../../middlewares/comment/createComment');
 const addCommentMW = require('../../middlewares/gadget/addComment');
@@ -14,7 +15,8 @@ const addCommentMW = require('../../middlewares/gadget/addComment');
 
 module.exports = function(objectRepository) {
 
-    router.get('/create', 
+    router.get('/create',
+        getUserListMW(objectRepository, { eszkozfelelos : true }),
         renderViewMW(objectRepository, 'gadget_create')
     );
     
@@ -35,6 +37,7 @@ module.exports = function(objectRepository) {
     );
 
     router.get('/:gadgetId/edit',
+        getUserListMW(objectRepository, {eszkozfelelos : true}),
         getGadgetMW(objectRepository),
         renderViewMW(objectRepository, 'gadget_create')
     );

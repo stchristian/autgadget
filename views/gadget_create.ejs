@@ -9,6 +9,21 @@
       <input type="text" class="form-control" id="nev" name="nev" value="<%=
       typeof gadget !== 'undefined' ? gadget.nev : '' %>" placeholder="Adja meg az eszköz nevét (márka, típus stb...)">
     </div>
+    <% if (loggedInUser.admin) { %>
+        <div class="form-group">
+            <label for="felelos">Felelős</label>
+            <select id="felelos" class="form-control">
+            <% users.forEach(user => { %>
+                <option value="<%= user.id %>" <% if (typeof gadget !== 'undefined') { %>
+                 <%= user.id == gadget._felelos.id ? 'selected' : '' %>
+                <% } else { %>
+                 <%= user.id == loggedInUser.id ? 'selected' : '' %>
+                <% } %>
+                 ><%= user.teljesNev %> </option>
+            <% }) %>
+            </select>
+        </div>
+    <% } %>
     <div class="form-group">
       <label for="sorszam">Sorszám</label>
       <input type="text" class="form-control" id="sorszam" name="sorszam"
