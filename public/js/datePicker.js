@@ -33,9 +33,11 @@ $(function() {
         yearSuffix: ''};
     $.datepicker.setDefaults($.datepicker.regional['hu']);
     $("#fromDate").datepicker({
-        beforeShowDay: beforeShowDay
+        beforeShowDay: beforeShowDay,
+        minDate: 0,
     });
     $("#toDate").datepicker({
-        beforeShowDay: beforeShowDay
+        beforeShowDay: beforeShowDay,
+        minDate: 0,
     });
 });

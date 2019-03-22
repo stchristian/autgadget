@@ -16,7 +16,6 @@ module.exports = function(objectRepository) {
         (req,res) => {
             res.redirect(`/gadget/details/${req.params.gadgetId}`);
         }
-        // renderViewMW(objectRepository, 'gadget_details')
     );
 
     router.get('/list',
@@ -24,6 +23,11 @@ module.exports = function(objectRepository) {
         renderViewMW(objectRepository, 'rental_list')
     );
 
+    router.get('/list/:gadgetId',
+        getRentalListMW(objectRepository),
+        renderViewMW(objectRepository, 'rental_list')
+    );
+    
     router.get('/myrentals',
         getRentalByUserMW(objectRepository),
         renderViewMW(objectRepository, 'rental_list')
