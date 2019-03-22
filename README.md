@@ -13,7 +13,7 @@ Az egyetemen a hallgatók szabadon kölcsönözhetnek eszközöket az AUT tansz�
   * Adatbázis elérés: Mongoose
   * Templating: EJS
 * Adatbázis: MongoDB
-* Frontend: Bootstrap
+* Frontend: Bootstrap, JQuery
 
 ### Mappa struktúra:
 * /models : Modellek
@@ -31,3 +31,8 @@ Az egyetemen a hallgatók szabadon kölcsönözhetnek eszközöket az AUT tansz�
 * MAIL_PASS email címhez tartozó jelszó
 * MAIL_SERVER email szerver
 * MAIL_PORT email szerver portja
+
+### Projekt futtatása (csak a konfiguráció megadása után)
+`npm install`
+
+`npm run dev:server`
