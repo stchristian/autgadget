@@ -1,7 +1,7 @@
 <div class="row mt-5">
     <div class="col-md-6 m-auto">
       <div class="card card-body">
-        <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>  Login</h1>
+        <h1 class="text-center mb-3"><i class="fas fa-sign-in-alt"></i>  Bejelentkezés</h1>
         <% if(typeof errors != 'undefined') { %>
             <% errors.forEach((error) => { %>
                 <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -36,7 +36,7 @@
           <button type="submit" class="btn btn-primary btn-block">Bejelentkezés</button>
         </form>
         <p class="lead mt-4">
-          Nincs fiókja? <a href="/register">Regisztráljon</a>
+          <a href="/register">Regisztráljon</a>
         </p>
       </div>
     </div>
