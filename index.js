@@ -22,12 +22,6 @@ const app = express();
 //Alkalmazás szintű változók az EJS fájlok részére
 app.locals.dateFormat = dateFormat;
 
-// ObjectID-s varázslás , csak hogy tudjuk hogy működik
-// let ObjectID = mongoose.Types.ObjectId;
-// var id = new ObjectID();
-// console.log(id.toHexString());
-// console.log(id.getTimestamp());
-
 // Set view engine
 app.use(expressLayouts);
 app.set('view engine', 'ejs');
@@ -59,20 +53,6 @@ app.use(passport.session());
 app.use(flash());
 
 require('./routes/route_config')(app);
-
-// app.get('/uuid', (req,res) => {
-//     //console.log(req);
-//     const u = uuid();
-//     res.send("UUID: " + u);
-// });
-
-// app.get('/test', (req,res) => {
-//     console.log('MW::Route handler for /test');
-//     console.log(req.sessionID);
-//     res.send('You requested /test!');
-// })
-
-// app.get('/', (req, res) => res.send('Hello World!'))
 
 app.listen(process.env.PORT, () => console.log(`Example app listening on port ${process.env.PORT}!`));
 
