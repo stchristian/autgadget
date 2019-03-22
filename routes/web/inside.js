@@ -5,6 +5,7 @@ const rentalModel = require('../../models/rental');
 const ensureAuthMW = require('../../middlewares/user/auth/ensureAuth');
 const logoutUserMW = require('../../middlewares/user/auth/logoutUser');
 const mainRedirectMW = require('../../middlewares/mainRedirect');
+const flashMessagesMW = require('../../middlewares/flashMessages');
 const userRouter = require('./user');
 const gadgetRouter = require('./gadget');
 
@@ -15,6 +16,7 @@ module.exports = (app) => {
         rentalModel: rentalModel
     };
 
+    app.use(flashMessagesMW(objectRepository));
     app.use('/user', ensureAuthMW(objectRepository));
     app.use('/gadget', ensureAuthMW(objectRepository));
     app.use('/rental', ensureAuthMW(objectRepository));

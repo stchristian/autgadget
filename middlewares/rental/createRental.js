@@ -24,22 +24,20 @@ module.exports = (objectRepository) => {
 
         try {
             const result = await newRental.save();
-            //TODO: email küldése az eszközfelelősnek
             gadget._felelos.sendRentalEmail(result);
             res.locals.rental = result;
-            console.log("sikeres kölcsönzés");
-            console.log(result);
+            req.flash('success_msg', 'Sikeres foglalás!');
             return next();
         }
         catch(err) {
-            res.locals.validation_errors = [];
+            let validation_errors = [];
             if(err.name === "ValidationError") {
-                res.locals.validation_errors = Object.values(err.errors).map(err => err.message);
+                validation_errors = Object.values(err.errors).map(err => err.message);
                 return next();
             }
             if(err.logicError) {
-                res.locals.validation_errors.push(err.msg);
-                console.log(err.msg)
+                validation_errors.push(err.msg);
+                req.flash('validation_errors', validation_errors);
                 return next();
             }
             else {

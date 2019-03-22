@@ -14,9 +14,9 @@ module.exports = function(objectRepository) {
         getGadgetMW(objectRepository),
         createRentalMW(objectRepository),
         (req,res) => {
-            res.redirect('/gadget/list');
+            res.redirect(`/gadget/details/${req.params.gadgetId}`);
         }
-        //renderViewMW(objectRepository, 'gadget_list')
+        // renderViewMW(objectRepository, 'gadget_details')
     );
 
     router.get('/list',

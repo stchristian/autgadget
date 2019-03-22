@@ -35,6 +35,7 @@
                 </ul>
             <% } %>
             
+            <% include ./partials/messages %>
             <form action="/rental/create/<%= gadget.id %>" method="POST">
                 <div class="form-group">
                     <label for="kezdete">Foglalás kezdete:</label>
