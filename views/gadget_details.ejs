@@ -50,8 +50,9 @@
                 Kölcsönzés
                 </button>
             </form>
-            <% if (loggedInUser.admin) { %>
-                <a href="/rental/list/<%= gadget.id %>" class="btn btn-info col col-md-auto">Eszköz history</a>
+            <% if (gadget._felelos.id == loggedInUser.id || loggedInUser.admin) { %>
+                <a href="/rental/list/<%= gadget.id %>" class="btn btn-info col col-md-auto">Eszköztörténet</a>
+                <a href="/gadget/<%= gadget.id %>/edit" class="btn btn-info col col-md-auto">Szerkesztés</a>
             <% } %>
         </div>
     </div>
